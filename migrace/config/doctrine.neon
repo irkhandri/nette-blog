@@ -1,0 +1,35 @@
+
+
+
+extensions:
+    # Use it only if you are using annotations instead of php8 attributes
+    doctrine.annotations: Nettrine\Annotations\DI\AnnotationsExtension
+    # doctrine.dbal: Nettrine\DBAL\DI\DbalExtension
+    doctrine.dbal.console: Nettrine\DBAL\DI\DbalConsoleExtension
+    doctrine.orm: Nettrine\ORM\DI\OrmExtension
+    doctrine.orm.attributes: Nettrine\ORM\DI\OrmAttributesExtension
+    nettrine.orm.cache: Nettrine\ORM\DI\OrmCacheExtension
+	# Use it only if you are using annotations instead of php8 attributes
+    # doctrine.orm.annotations: Nettrine\ORM\DI\OrmAnnotationsExtension
+    doctrine.orm.console: Nettrine\ORM\DI\OrmConsoleExtension
+    doctrine.cache: Nettrine\Cache\DI\CacheExtension
+
+doctrine.dbal:
+    debug:
+        panel: %debugMode%
+   
+    connection:
+        dbname: blog-nette-tut
+        user: root
+        password: Irkhandri
+        host: localhost
+        driver: mysqli
+
+
+doctrine.orm.attributes: # If you still use annotations, change to doctrine.orm.annotations
+    mapping:
+        App\Model: %appDir%/Model # The root folder where to start search for entities
+
+
+    # metadata:
+    #     App: %appDir%/Model

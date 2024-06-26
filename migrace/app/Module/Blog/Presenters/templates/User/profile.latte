@@ -1,0 +1,109 @@
+{block content}
+
+
+<div class="w3-container w3-content" style="max-width:1400px;margin-top:80px">
+    <div class="w3-row">
+        <div class="w3-col m4">
+            <!-- Profile -->
+            <div class="w3-card w3-round w3-white">
+                <div class="w3-container w3-center">
+                    {* <p class="w3-center"><img src="{$profile->getImageUrl()}" class="w3-circle" style="max-width: 400px; max-height: 550px;  
+                        border-radius: 40px; " alt="Avatar"></p> *}
+                    <h2 >{$profile->getUsername()}</h2>
+                    <hr>
+              
+
+                    <p><i class="fa fa-at fa-fw w3-margin-right w3-text-theme"></i> {$profile->getEmail()}</p>
+
+
+                    {* {# <p><i class="fa fa-calendar fa-fw w3-margin-right w3-text-theme"></i> Here from {{profile.created.date}}</p> #} *}
+
+
+
+                      <br> 
+
+                    {* <a href="" class="w3-button w3-theme w3-right w3-right"><i class="fa fa-edit"></i> Edit Profile</a> *}
+
+                </div>
+        
+            </div>
+
+            <br>
+
+            {* <div class="w3-card w3-round w3-white   ">
+                <div class="w3-container ">
+                    <h2>About me</h2>
+                    <p> {$profile->getBio()}</p>
+                </div>
+            </div> *}
+            <br>
+
+            <!-- Interests -->
+            <div class="w3-card w3-round w3-white  ">
+
+                        <a class="w3-button w3-theme w3-right" href="{link Interest:create}"><i class="fa fa-plus"></i>Add Interest</a>
+
+                <div class="w3-container ">
+                    <h2>Interests</h2>
+                
+                    {foreach $interests as $interest}
+                        <a href="{link Interest:delete $interest->getId()}"   class="w3-button w3-red w3-right " style="margin-left: 10px;"><i class="fa fa-eraser"></i> Delete</a>
+                        <a href="{link Interest:edit $interest->getId()}" class="w3-button w3-theme w3-right "><i class="fa fa-edit"></i> Edit</a>
+                        
+                        <p class=" w3-tag  w3-text-white  w3-theme">{$interest->getTitle()}</p> 
+                        <p> {$interest->getContent()}</p>
+                    {/foreach } 
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Middle Column -->
+        <div class="w3-col    w3-round w3-margin m7">
+
+                <h2 class="w3-text-theme w3-center"> My blogs</h2>
+                <a class="w3-button w3-margin-bottom w3-margin-right w3-theme w3-right" href="{link Blog:create}"><i class="fa fa-plus"></i>Add Blog</a>
+
+
+
+            {foreach $profile->getBlogs() as $blog}
+
+            <div class="w3-container w3-card w3-white w3-round w3-margin-bottom"><br>
+
+                 <a href="{link Blog:edit $blog->getId()}" class="w3-button w3-theme "><i class="fa fa-edit"></i> Edit</a>
+                <a href="{link Blog:delete $blog->getId()}"   class="w3-button w3-red  " style="margin-right: 10px;"><i class="fa fa-eraser"></i> Delete</a>
+                <div >
+                    <br>    
+                
+                    <hr>
+                    <div class="w3-row-padding" >
+                        <div >
+                            <img src="{$blog->getImageUrl()}" style="width:100%" alt="Logo" class="w3-margin-bottom">
+                        </div>
+                    </div>
+
+                    <h3 class="w3-center">{$blog->getTitle()}</h3>
+                    <p>{$blog->getContent()|slice(0,400)}...</p>
+                
+                    <a href="{link Blog:show $blog->getId()}" type="button" class="w3-button w3-theme w3-center w3-margin-bottom"><i class="fa fa-info"></i> Show more</a> 
+    
+                    <br>
+
+                </div>
+            </div>
+            
+            
+            {/foreach} 
+
+             
+
+        </div>
+
+            
+       
+    </div>
+</div>
+<br>
+
+
+{/block}

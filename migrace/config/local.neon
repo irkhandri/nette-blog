@@ -1,0 +1,12 @@
+# parameters:
+#     doctrine:
+#         host: localhost
+#         user: root
+#         password: Irkhandri
+#         dbname: blog-nette-tut
+
+
+database:
+    dsn: 'mysql:host=127.0.0.1;dbname=blog-nette-tut'
+    user: 'root'
+    password: 'Irkhandri'

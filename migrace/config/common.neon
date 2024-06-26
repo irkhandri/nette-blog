@@ -1,0 +1,100 @@
+parameters:
+
+# services:
+#     - Doctrine\ORM\EntityManager
+
+application:
+	errorPresenter: Auxiliary:Error
+	mapping:
+		*: App\Module\*\Presenters\*Presenter
+
+# security:
+# 	users:
+# 		admin: secret  # user 'admin', password 'secret'
+
+
+session:
+	expiration: 14 days
+
+database:
+    dsn: 'mysql:host=127.0.0.1;dbname=blog-nette-tut'
+    user: 'root'
+    password: 'Irkhandri'
+di:
+	export:
+		parameters: no
+		tags: no
+
+
+extensions:
+	console: Contributte\Console\DI\ConsoleExtension(%consoleMode%)
+	dbal: Nettrine\DBAL\DI\DbalExtension
+	dbal.console: Nettrine\DBAL\DI\DbalConsoleExtension
+	orm: Nettrine\ORM\DI\OrmExtension
+	nettrine.annotations: Nettrine\Annotations\DI\AnnotationsExtension
+	orm.annotations: Nettrine\ORM\DI\OrmAnnotationsExtension
+	orm.console: Nettrine\ORM\DI\OrmConsoleExtension
+	migrations: Nettrine\Migrations\DI\MigrationsExtension
+	orm.cache: Nettrine\Cache\DI\CacheExtension
+
+dbal:
+	debug:
+		panel: %debugMode%
+	connection:
+		host: localhost
+		user: root
+		password: Irkhandri
+		dbname: blog-nette-tut
+		driver: 'pdo_mysql'
+
+		# types:
+		# 	uuid:
+		# 		class: Ramsey\Uuid\Doctrine\UuidType
+		# 		commented: false
+
+orm:
+	configuration:
+		customStringFunctions:
+			group_concat: DoctrineExtensions\Query\Mysql\GroupConcat
+
+orm.annotations:
+	mapping:
+		App: %appDir%
+
+migrations:
+    table: doctrine_migrations
+    column: version
+    directory: %appDir%/../migrations
+    namespace: Migrations
+
+
+
+# dbal:
+# 	# debug: %debugMode%
+# 	connection:
+# 		host: localhost
+# 		driver: mysqli
+# 		dbname: blog-nette-tut
+# 		user: root
+# 		password: Irkhandri
+
+# extensions:
+# 	console: Contributte\Console\DI\ConsoleExtension(%consoleMode%)
+# 	migrations: Nettrine\Migrations\DI\MigrationsExtension
+
+# 	# migrations: Nextras\Migrations\Bridges\NetteDI\MigrationsExtension
+# 	# migrations: Nettrine\Migrations\DI\MigrationsExtension
+
+# migrations:
+# 	directory: %appDir%/../migrations # migrations base directory
+# 	namespace: migrations
+# 	# driver: mysql               # pgsql or mysql
+# 	# dbal: doctrine               # nextras, nette, doctrine or dibi
+
+
+
+
+
+
+# includes:
+#     - doctrine.neon

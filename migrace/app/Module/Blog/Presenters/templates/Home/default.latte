@@ -1,0 +1,56 @@
+
+
+{block content}
+<br><br>
+
+<div class="w3-container  w3-content " style="max-width: 1100px; margin-top: 80px">
+
+	<h1>Můj blog</h1>
+		{* <h2> <a n:href="Edit:create"> Create new Post </a> </h2> *}
+
+<br>
+
+    <div class="w3-center  w3-row-padding w3-margin ">
+
+	{foreach $blogs as $post}
+
+
+		<div class="w3-col m13 w3-margin-right w3-card  w3-white  " style="margin-top: 20px;">
+			<div class="friend-card w3-container w3-padding ">
+			
+				<img src="{$post->getImageUrl()}" alt="Event" style=" margin-top: 30px; max-width: 1100px; max-height: 1100px;">
+				<h3 >{$post->getTitle()}</h3>
+
+				{* <p> By {{blog.profile.name}} </p> *}
+				
+				<p> {$post->getContent()|truncate:256}</p>
+				{* <div class="w3-text-theme w3-right">
+					<i class="fa fa-thumbs-up"></i>
+					{# <span>{{ blog.vote_like }} Like{{blog.vote_like|pluralize:"s"}} </span>  #}
+					<i class="fa fa-thumbs-down"></i>
+					{# <span>{{ blog.vote_dislike }} Dislike{{blog.vote_dislike|pluralize:"s"}} </span>  #}
+					
+				</div>   *}
+				<br>
+				<a href="{link Blog:show $post->getId()}"><button class="w3-button w3-theme w3-margin"><i class="fa fa-info"></i> Show more</button></a>
+			</div>
+		</div>
+
+	
+
+
+
+	{* <div class="post">
+
+		<h2> <a href=""> {$post->getTitle()}  </a> </h2>
+		<div class="date">{$post->getCreatedAt()|date:'F j, Y'}</div>
+
+		<div>{$post->getContent()|truncate:256}</div>
+	</div> *}
+
+
+	{/foreach}
+	</div>
+		</div>
+
+{/block}

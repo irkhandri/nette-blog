@@ -1,0 +1,41 @@
+{block content}
+
+
+<!-- Header -->
+<div class="w3-container w3-text-theme w3-padding" style="margin-top:90px">
+    <h1 class="w3-center">Messssaaaaageee</h1>
+</div>
+
+<!-- Current Message -->
+<div  style="position: absolute;
+top:40%;
+left: 50%;
+transform: translate(-50%, -50%);">
+    
+    <div class="w3-container w3-card w3-white w3-margin-left   " style="width: 900px;">
+        <div class="w3-container w3-padding">
+            <p class="w3-right">{$mess->getCreatedAt()->format('d/m/Y H:i')}</p>
+
+            <p>From: <a style="text-decoration: none;font-weight: bold;" href="{link User:show $mess->getSender()->getId()}">{$mess->getSender()->getUsername()}</a></p> 
+        
+            <p>To: <a style="text-decoration: none;font-weight: bold;" href="{link User:show $mess->getReciever()->getId()}">{$mess->getReciever()->getUsername()}</a></p> 
+            <p >Subject: {$mess->getSubject()}</p>
+            <hr>
+            <p>{$mess->getContent()}   </p>
+        </div>
+    </div>
+    <div class="w3-container w3-center ">
+        
+        <a href="{link Message:inbox}" class="w3-button w3-theme-d1">Back to Inbox</a>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+{/block}}
