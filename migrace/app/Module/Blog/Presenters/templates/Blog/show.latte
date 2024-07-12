@@ -105,28 +105,32 @@
 
                 
                 {# <h3 class="w3-text-theme">Comments</h3>
-                <hr> #}
-                  {# {% for comment in blog.comment_set.all %}
+                <hr> #} *}
+                  {* {% for comment in blog.comment_set.all %} *}
 
-                   *}
+                {control commentForm}
 
-                  {* <div class="w3-container w3-margin">
+
+                <p> Commmmemem </p>
+	                {foreach $comments as $comment}
+
+  
+                  <div class="w3-container w3-margin">
                       <div class="w3-row-padding w3-padding-16">
                           <div class="w3-col m2">
-                              <img src="{{comment.owner.image.url}}" alt="Avatar" class="w3-circle" style="width:100px">
+                              <img src="{$comment->getUser()->getImageUrl()}" alt="Avatar" class="w3-circle" style="width:100px">
                           </div>
                           <div class="w3-col m10">
-                              <p class="w3-right ">{{comment.created|date:"d/m/Y"}}</p>
+                              {* <p class="w3-right ">{{comment.created|date:"d/m/Y"}}</p> *}
                       
-                              <a href="{% url 'user' comment.owner.id %}" ><h4>{{comment.owner.name}}</h4></a>
-                              <p class="w3-right w3-opacity w3-text-theme">I {{comment.react}} it .</p>
-                              <p>{{comment.description}}</p>
+                              <a href="" ><h4>{$comment->getUser()->getUsername()}</h4></a>
+                              <p class="w3-right w3-opacity w3-text-theme">I {$comment->isIsLiked()} it .</p>
+                              <p>{$comment->getContent()}</p>
                               
                           </div>
                       </div>
                   </div>
-                  {% endfor %} #} *}
-  
+                  {/foreach}  
           </div>
   
       

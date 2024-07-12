@@ -6,6 +6,7 @@ namespace App\Module\Blog\Presenters;
 
 use App\Model\Blog;
 use App\Model\BlogFacade;
+use App\Model\Comment;
 use App\Model\Interest;
 use App\Model\User;
 use Doctrine\ORM\EntityManagerInterface;
@@ -37,6 +38,50 @@ final class BlogPresenter extends Nette\Application\UI\Presenter
         }
     }
 
+
+    public function createComponentCommentForm() :Form
+        {
+                $form = new Form();
+                $form->addTextArea('content', 'Content')->setRequired();
+
+                $form->addSelect('rate', 'Rate:', ['dislike', 'like']);
+                
+                $form->addSubmit('send', 'Add Comment');
+                $form->onSuccess[] = $this->commentFormSucceeded(...);
+                return $form;
+        }
+
+        public function commentFormSucceeded(array $data): void
+        {
+                $userId = $this->getUser()->getId();
+                $blogId = $this->getParameter('id');
+
+                $comment = new Comment();
+
+                $blog = $this->em->find(Blog::class, $blogId);
+                $user = $this->em->getRepository(User::class)->find($userId);
+                $comment->setUser($user);
+                $user->addComments($comment);
+        
+                $comment->setContent($data['content']);
+
+                // dd($data['rate']);
+                $rate = $data['rate'] == 1 ? true : false;
+
+                $comment->setIsLiked($rate);
+                $comment->setBlog($blog);
+                $blog->addComments($comment);
+
+                $this->em->persist($comment);
+                $this->em->flush();
+
+
+
+                $this->flashMessage('Added successfullly');
+                $this->redirect('User:profile');
+
+              
+        }
 
     public function createComponentBlogForm(): Form
     {
@@ -121,7 +166,14 @@ final class BlogPresenter extends Nette\Application\UI\Presenter
     public function renderShow(int $id): void
     {
         // dd($this->facade->findById($id));
-       $this->template->blog = $this->facade->findById($id);
+        $blog = $this->facade->findById($id);
+
+        // $blog = $this->em->find(Blog::class, $id);
+        
+
+        $this->template->blog = $blog;
+        $this->template->comments = $blog->getComments(); //$blog->getComments();; //$this->em->find(Comment::class) 
+        // dd(count($blog->getUser()->getComments()));
 
     }    
 
@@ -133,4 +185,9 @@ final class BlogPresenter extends Nette\Application\UI\Presenter
         //     ->getPublicArticles()
         //     ->limit(5);
     }
+
+
+    
+
+
 }

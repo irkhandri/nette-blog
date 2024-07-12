@@ -4,6 +4,8 @@ namespace App\Model;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serializer;
+
 
 /**
  * @ORM\Entity
@@ -15,23 +17,66 @@ class Blog
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Serializer\Groups({"default", "blog"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string")
-     */
+    * @Serializer\Groups({"default", "blog"})       */
     private $imageUrl;
 
     /**
      * @ORM\Column(type="string")
-     */
+    * @Serializer\Groups({"default", "blog"})       */
     private $title;
 
     /**
      * @ORM\Column(type="text")
-     */
+    * @Serializer\Groups({"default", "blog"})       */
     private $content;
+
+
+    /**
+     * @ORM\Column(type="datetime")
+     * @Serializer\Groups({"default", "blog"})    
+    */
+    private $created_at;
+
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="blogs")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @Serializer\Groups({"default", "blog"})
+     */
+    private  $user;
+
+
+
+    /**
+     * @ORM\OneToMany(targetEntity="Comment",mappedBy="blog" )
+     */
+    private $comments;
+
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComments(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+        }
+        return $this;
+    }
+
+
 
 
     public function getId()
@@ -77,13 +122,12 @@ class Blog
     {
         $this->created_at = new \DateTime();
         $this->imageUrl = 'https://www.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg';
+        $this->comments = new ArrayCollection();
+
     }
 
     
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $created_at;
+    
 
 
     public function getCreatedAt(): ?\DateTimeInterface
@@ -98,11 +142,7 @@ class Blog
         return $this;
     }
 
-    /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="blogs")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-     */
-    private  $user;
+   
 
 
     public function getUser()
@@ -116,5 +156,15 @@ class Blog
 
         return $this;
     }
+
+    // /**
+    //  * @Serializer\VirtualProperty()
+    //  * @Serializer\SerializedName("user")
+    //  * @Serializer\Groups({"default"})
+    //  */
+    // public function getAuthorName()
+    // {
+    //     return $this->user ? $this->user->getUsername() : null;
+    // }
 
 }

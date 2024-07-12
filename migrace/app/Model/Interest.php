@@ -2,6 +2,7 @@
 namespace App\Model;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * @ORM\Entity
@@ -23,6 +24,7 @@ class Interest
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Serializer\Groups({"default", "user"})
      */
     private $id;
 
@@ -33,11 +35,13 @@ class Interest
 
     /**
      * @ORM\Column(type="string")
+     * @Serializer\Groups({"default", "user"})
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
+     * @Serializer\Groups({"default", "user"})
      */
     private $content;
 

@@ -35,13 +35,13 @@ final class BlogFacade
             $blog->setImageUrl($data['imageUrl']);
 
         $user = $this->em->getRepository(User::class)->find($userId);
-
+        
         $blog->setUser($user);
         $user->addBlogs($blog);
-        
+        // dd($blog);
         $this->em->persist($blog);
         $this->em->flush();
-        // dd($blog);
+        
 
     }
 

@@ -4,6 +4,8 @@ namespace App\Model;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serializer;
+
 
 /**
  * @ORM\Entity
@@ -15,6 +17,8 @@ class User
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Serializer\Groups({"default", "user", "blog"})
+
      */
     private $id;
 
@@ -25,6 +29,7 @@ class User
 
     /**
      * @ORM\Column(type="string")
+     * @Serializer\Groups({"default", "user", "blog"})
      */
     private $username;
 
@@ -37,6 +42,7 @@ class User
 
     /**
      * @ORM\Column(type="string")
+     * @Serializer\Groups({"default", "user", "blog"})
      */
     private $email;
 
@@ -45,8 +51,52 @@ class User
 
     /**
      * @ORM\Column(type="string")
+     * @Serializer\Groups({"default", "user"})
      */
     private $imageUrl;
+
+
+
+    /**
+     * @ORM\Column(type="datetime")
+     * @Serializer\Groups({"default", "user"})
+
+     */
+    private $created_at;
+
+
+    /**
+     * @ORM\OneToMany(targetEntity="Interest", mappedBy="user")
+     * @Serializer\Groups({"default", "user"})
+     */
+    private $interests;
+
+
+
+    /**
+     * @ORM\OneToMany(targetEntity="Blog", mappedBy="user")
+     * @Serializer\Groups({"default"})
+     */
+    private $blogs;
+
+
+    /**
+     * @ORM\OneToMany(targetEntity="Message",mappedBy="reciever" )
+     */
+    private $inMessages;
+
+
+    /**
+     * @ORM\OneToMany(targetEntity="Message", mappedBy="sender")
+     */
+    private $outMessages;
+
+
+    /**
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="user" )
+     */
+    private $comments;
+
 
     public function getId()
     {
@@ -75,9 +125,22 @@ class User
     }
 
 
+
+    public function setPasswordHash(string $hash)
+    {
+        $this->passwordHash = $hash;
+    }
+
+    public function getPasswordHash()
+    {
+        return $this->passwordHash ;
+    }
+
+
     public function setEmail(string $email)
     {
         $this->email = $email;
+        return $this;
     }
 
     public function getEmail()
@@ -101,16 +164,14 @@ class User
     {
         $this->interests = new ArrayCollection();
         $this->blogs = new ArrayCollection();
+        $this->comments = new ArrayCollection();
+
         $this->roles[] = 'user';
         $this->created_at = new \DateTime();
         $this->imageUrl = 'https://static.vecteezy.com/system/resources/thumbnails/020/765/399/small/default-profile-account-unknown-icon-black-silhouette-free-vector.jpg';
     }
 
-    /**
-     * @ORM\OneToMany(targetEntity="Interest", mappedBy="user")
-     */
-    private $interests;
-
+   
 
      /**
      * @return Collection|Interest[]
@@ -145,10 +206,7 @@ class User
 
 
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $created_at;
+    
 
 
     public function getCreatedAt(): ?\DateTimeInterface
@@ -165,11 +223,8 @@ class User
 
    
 
+    
     /**
-     * @ORM\OneToMany(targetEntity="Blog", mappedBy="user")
-     */
-    private $blogs;
- /**
      * @return Collection|Blog[]
      */
     public function getBlogs(): Collection
@@ -200,11 +255,8 @@ class User
     // }
 
 
+    
     /**
-     * @ORM\OneToMany(targetEntity="Message",mappedBy="reciever" )
-     */
-    private $inMessages;
- /**
      * @return Collection|Message[]
      */
     public function getInMessages(): Collection
@@ -223,10 +275,7 @@ class User
 
     
 
-    /**
-     * @ORM\OneToMany(targetEntity="Message", mappedBy="sender")
-     */
-    private $outMessages;
+    
  /**
      * @return Collection|Message[]
      */
@@ -245,6 +294,23 @@ class User
     }
 
 
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComments(Comment $comment): self
+    {
+        // dd($comment);
+        // if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+        // }
+        return $this;
+    }
 
     
 }

@@ -1,4 +1,12 @@
 parameters:
+    jwtSecret: '123123123123'
+
+
+
+# services:
+#     - App\Module\Api\Presenters\RegistrationPresenter(
+#         %jwtSecret%
+#       )
 
 # services:
 #     - Doctrine\ORM\EntityManager
@@ -24,6 +32,7 @@ di:
 	export:
 		parameters: no
 		tags: no
+
 
 
 extensions:

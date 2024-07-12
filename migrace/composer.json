@@ -36,7 +36,10 @@
 		"nettrine/cache": "^0.3.0",
 		"nettrine/migrations": "^0.9.1",
 		"nettrine/fixtures": "^0.7.2",
-		"nelmio/alice": "^3.13"
+		"nelmio/alice": "^3.13",
+		"jms/serializer": "^3.30",
+		"lexik/jwt-authentication-bundle": "^3.0",
+		"firebase/php-jwt": "^6.10"
 	},
 	"autoload": {
 		"psr-0": {"": "src/"},

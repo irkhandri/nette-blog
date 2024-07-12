@@ -41,8 +41,9 @@
                         <img src="{$profile->getImageUrl()}" alt="author avatar" style="max-width: 250px; max-height: 250px;  
                             border-radius: 40px; ">
 
+			{if $user->isLoggedIn()}
                         <a href="{link Message:create $profile->getId()}" class="w3-button w3-theme w3-margin"><i class="fa fa-envelope"></i> Send Message</a>
-                                     
+            {/if}
                         <a href="{link User:show $profile->getId()}">
                             <button  class="w3-button w3-theme w3-margin"><i class="fa fa-info"></i> About </button>
                         </a>

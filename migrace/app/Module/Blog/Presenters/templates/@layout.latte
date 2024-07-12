@@ -48,8 +48,10 @@
 			<a href="{link Home:default}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white  " ><i class="fa fa-book"></i>  Blogs</a>
 			<a href="{link User:profiles}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white " title="Groups"><i class="fa fa-group "></i>  Authors</a>
 
-			<a href="{link Message:inbox}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white " title="Messages"><i class="fa fa-envelope"></i>  Messages</a>
+
 			{if $user->isLoggedIn()}
+			<a href="{link Message:inbox}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white " title="Messages"><i class="fa fa-envelope"></i>  Messages</a>
+			
 
 			<a href="{link User:profile}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white "><i class="fa fa-home "></i> MyBlog</a>
 			<a n:href="Blog:create" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white "><i class="fa fa-edit"></i> Add new Blog</a> 

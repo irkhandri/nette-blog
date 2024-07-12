@@ -23,6 +23,8 @@ final class UserPresenter extends Nette\Application\UI\Presenter
         $user = $this->facade->findUser($this->getUser()->getId());
         $this->template->profile = $user;
         $this->template->interests = $user->getInterests();
+        $this->template->comments = $user->getComments();
+
     }
 
 

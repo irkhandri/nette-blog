@@ -33,3 +33,6 @@ doctrine.orm.attributes: # If you still use annotations, change to doctrine.orm.
 
     # metadata:
     #     App: %appDir%/Model
+doctrine:
+    entities:
+        App: %appDir%/Entity
