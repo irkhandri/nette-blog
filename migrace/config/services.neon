@@ -6,7 +6,10 @@ services:
 	- App\Forms\SignUpFormFactory
 	- App\Router\RouterFactory::createRouter
 	- App\Model\BlogFacade
-
+	redis:
+        factory: Redis
+        setup:
+            - connect('redis', 6379)
 
 	
 	# - App\Module\Api\Presenters\RegistrationPresenter(

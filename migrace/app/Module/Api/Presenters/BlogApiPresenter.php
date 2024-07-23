@@ -53,7 +53,7 @@ final class BlogApiPresenter extends ApiPresenter
 
 
 
-    public function actionDefault()
+    public function actionDefault($title, $name)
     {
         $request = $this->getHttpRequest();
         $title = $request->getQuery('title');

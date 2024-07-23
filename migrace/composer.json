@@ -39,7 +39,10 @@
 		"nelmio/alice": "^3.13",
 		"jms/serializer": "^3.30",
 		"lexik/jwt-authentication-bundle": "^3.0",
-		"firebase/php-jwt": "^6.10"
+		"firebase/php-jwt": "^6.10",
+		"nette/caching": "^3.2",
+		"kdyby/redis": "^0.9.1",
+		"contributte/redis": "^0.6.0"
 	},
 	"autoload": {
 		"psr-0": {"": "src/"},

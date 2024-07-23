@@ -54,7 +54,7 @@ class ApiPresenter extends Nette\Application\UI\Presenter
 
 
     /**
-     * Define attribute for serializing by groups 
+     * Define attribute for serializng by group
      */
     private function getSerializationContext(array $groups = [])
     {

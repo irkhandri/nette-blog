@@ -1,7 +1,10 @@
 parameters:
     jwtSecret: '123123123123'
 
-
+tracy:
+    enabled: true
+    showBar: true
+    strictMode: true
 
 # services:
 #     - App\Module\Api\Presenters\RegistrationPresenter(
@@ -24,10 +27,17 @@ application:
 session:
 	expiration: 14 days
 
+
 database:
-    dsn: 'mysql:host=127.0.0.1;dbname=blog-nette-tut'
-    user: 'root'
-    password: 'Irkhandri'
+    dsn: 'mysql:host=db;dbname=nette_db'
+    user: nette_user
+    password: secret
+
+
+# database:
+#     dsn: 'mysql:host=127.0.0.1;dbname=blog-nette-tut'
+#     user: 'root'
+#     password: 'Irkhandri'
 di:
 	export:
 		parameters: no
@@ -45,6 +55,9 @@ extensions:
 	orm.console: Nettrine\ORM\DI\OrmConsoleExtension
 	migrations: Nettrine\Migrations\DI\MigrationsExtension
 	orm.cache: Nettrine\Cache\DI\CacheExtension
+	redis: Contributte\Redis\DI\RedisExtension
+
+	# redis: Kdyby\Redis\DI\RedisExtension
 
 dbal:
 	debug:
@@ -101,7 +114,9 @@ migrations:
 # 	# dbal: doctrine               # nextras, nette, doctrine or dibi
 
 
-
+redis:
+    # host: %env(REDIS_HOST)%
+    # port: %env(REDIS_PORT)%
 
 
 

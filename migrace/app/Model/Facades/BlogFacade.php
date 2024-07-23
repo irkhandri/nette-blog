@@ -11,7 +11,7 @@ final class BlogFacade
    
 
     public function __construct(
-        private Nette\Database\Explorer $database,
+        // private Nette\Database\Explorer $database,
         // private User $user,
         private EntityManagerInterface $em
     )

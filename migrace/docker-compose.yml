@@ -1,0 +1,46 @@
+services:
+  db:
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: nette_db
+      MYSQL_USER: nette_user
+      MYSQL_PASSWORD: secret
+    volumes:
+      - db_data:/var/lib/mysql
+
+  
+  back:
+    container_name: back
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: php -S 0.0.0.0:8000 -t www
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - redis
+    environment:
+      DB_URL: mysql://nette_user:secret@db:3306/nette_db
+      REDIS_URL: redis://redis:6379
+
+    volumes:
+      - .:/var/www/html
+    working_dir: /var/www/html
+
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+volumes:
+  db_data:
+  redis_data:
+    
+

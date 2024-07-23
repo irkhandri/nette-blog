@@ -42,8 +42,9 @@ final class BlogPresenter extends Nette\Application\UI\Presenter
     public function createComponentCommentForm() :Form
         {
                 $form = new Form();
-                $form->addTextArea('content', 'Content')->setRequired();
-
+                $form->addTextArea('content', 'Content')->setRequired()	
+                ->setHtmlAttribute('placeholder', 'Something ...');
+                
                 $form->addSelect('rate', 'Rate:', ['dislike', 'like']);
                 
                 $form->addSubmit('send', 'Add Comment');
